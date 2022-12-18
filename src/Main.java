@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 
 public class Main {
-    public static void main(String[] args)throws Exception {
+    public static void main(String[] args) throws Exception {
 
 
         Basket basket = new Basket();
@@ -17,7 +17,7 @@ public class Main {
 
         }
 
-        File file = new File("basket.txt");
+        File file = new File("basket.bin");
         try {
             if (file.createNewFile() || file.length() == 0) {
                 basket = new Basket(products, prices);

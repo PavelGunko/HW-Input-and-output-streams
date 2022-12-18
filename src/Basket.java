@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 
-public class Basket {
+public class Basket implements Serializable {
 
     protected String[] names;
     protected int[] prices;
@@ -43,15 +43,13 @@ public class Basket {
 
     //метод сохранения корзины в текстовый файл;
     public void saveTxt(File textFile) throws IOException {
-        try (PrintWriter writer = new PrintWriter(textFile);)
-        {
+        try (PrintWriter writer = new PrintWriter(textFile);) {
             writer.println(names.length);
             for (int i = 0; i < names.length; i++) {
                 writer.println(names[i] + "\t" + prices[i] + "\t" + amounts[i]);
 
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -63,7 +61,7 @@ public class Basket {
         String[] names = null;
         int[] prices = null;
         int[] amounts = null;
-        Basket basket=null;
+        Basket basket = null;
         try (Scanner scanner = new Scanner(new FileInputStream(textFile));) {
             int size = Integer.parseInt(scanner.nextLine());
             names = new String[size];
@@ -82,8 +80,7 @@ public class Basket {
             for (int i = 0; i < names.length; i++) {
                 basket.addToBasket(i, amounts[i]); //через конструктор
             }
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
 
@@ -92,7 +89,26 @@ public class Basket {
 
     }
 
+
+    public void saveBin(File textFile) throws IOException {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(textFile));) {
+            out.writeObject(this);
+
+        }
+    }
+
+    public static Basket loadFromBin(File textFile) throws IOException, ClassNotFoundException { // если будет объект класса которого нет в проекте
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(textFile));) {
+            return (Basket) in.readObject();
+        }
+    }
+
 }
+
+
+
+
+
 
 
 
