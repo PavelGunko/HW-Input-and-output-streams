@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 
 public class Main {
-    public static void main(String[] args)throws Exception {
+    public static void main(String[] args) throws Exception {
 
 
         Basket basket = new Basket();
@@ -17,12 +17,12 @@ public class Main {
 
         }
 
-        File file = new File("basket.txt");
+        File file = new File("basket.bin");
         try {
             if (file.createNewFile() || file.length() == 0) {
                 basket = new Basket(products, prices);
             } else {
-                basket = Basket.loadFromTxtFile(file);
+                basket = Basket.loadFromBin(file);
             }
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -43,7 +43,7 @@ public class Main {
                 basket.addToBasket(productNumber, productCount);
             }
             try {
-                basket.saveTxt(file);
+                basket.saveBin(file);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -53,4 +53,3 @@ public class Main {
         basket.printCart();
     }
 }
-
