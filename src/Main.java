@@ -22,7 +22,7 @@ public class Main {
             if (file.createNewFile() || file.length() == 0) {
                 basket = new Basket(products, prices);
             } else {
-                basket = Basket.loadFromTxtFile(file);
+                basket = Basket.loadFromBin(file);
             }
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -43,7 +43,7 @@ public class Main {
                 basket.addToBasket(productNumber, productCount);
             }
             try {
-                basket.saveTxt(file);
+                basket.saveBin(file);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -53,4 +53,3 @@ public class Main {
         basket.printCart();
     }
 }
-
